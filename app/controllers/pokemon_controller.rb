@@ -4,4 +4,10 @@ class PokemonController < ApplicationController
 
     render json: @pokemon
   end
+
+  def show
+    @pokemon = Pokemon.find(params[:id])
+
+    render json: @pokemon
+  end
 end
