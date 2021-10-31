@@ -10,19 +10,31 @@ orbs:
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/ruby:3.0.1
+        environment:
+          RAILS_ENV: test
+          DATABASE_URL: postgresql://localhost
+          POSTGRES_URL: postgres
+          PGUSER: postgres
+          PGHOST: 127.0.0.1
+      - image: circleci/postgres:11.6-alpine-ram
     executor: ruby/default
     steps:
       - checkout
+      - run: sudo apt-get update
+      - run: sudo apt-get install postgresql-client-11
       - run:
           name: Install Bundler
           command: gem install bundler
-      - run:
-          name: Which bundler?
-          command: bundle -v
       - ruby/bundle-install
+      - run:
+          name: Setup Rails Test DB
+          command: bundle exec rails db:create; bundle exec rails db:schema:load
+      - run:
+          name: RSpec Suite
+          command: bundle exec rspec spec
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -30,4 +42,4 @@ workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - build
+      - test
