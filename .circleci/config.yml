@@ -15,7 +15,10 @@ jobs:
       - image: circleci/ruby:3.0.1
         environment:
           RAILS_ENV: test
-          DATABASE_URL: postgresql://root@localhost/circle_test
+          DATABASE_URL: postgresql://localhost
+          POSTGRES_URL: postgres
+          PGUSER: postgres
+          PGHOST: 127.0.0.1
       - image: circleci/postgres:11.6-alpine-ram
     executor: ruby/default
     steps:
