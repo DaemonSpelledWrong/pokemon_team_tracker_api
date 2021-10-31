@@ -19,9 +19,6 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
-      - run:
-          name: Waiting for PostgreSQL to start
-          command: sleep 120
       - run: sudo apt-get update
       - run: sudo apt-get install postgresql-client-11
       - run:
