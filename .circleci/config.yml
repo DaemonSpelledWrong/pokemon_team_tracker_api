@@ -31,7 +31,7 @@ jobs:
       - ruby/bundle-install
       - run:
           name: Setup Rails Test DB
-          command: bundle exec rails db:schema:load
+          command: bundle exec rails db:create; bundle exec rails db:load
       - run:
           name: RSpec Suite
           command: bundle exec rspec spec
