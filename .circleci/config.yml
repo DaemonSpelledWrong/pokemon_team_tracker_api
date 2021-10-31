@@ -15,12 +15,12 @@ jobs:
       - image: circleci/ruby:3.0.1
         environment:
           TEST_DATABASE_URL: postgresql://root@localhost/circle_test
-      - image: circleci/postgres:12.8-ram
+      - image: circleci/postgres:11.6-alpine-ram
     executor: ruby/default
     steps:
       - checkout
       - run: sudo apt-get update
-      - run: sudo apt-get install postgresql-client-12
+      - run: sudo apt-get install postgresql-client-11
       - run:
           name: Install Bundler
           command: gem install bundler
