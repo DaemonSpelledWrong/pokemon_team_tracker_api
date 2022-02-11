@@ -1,8 +1,26 @@
 require 'rails_helper'
 
 RSpec.describe "Pokemons", type: :request do
-  let(:pokemon_array) { Array.new(3) { Pokemon.create(name: 'Testermon') } }
-  let(:pokemon) { Pokemon.create(name: 'Pokemon 1') }
+  testermon_attributes = {
+    name: 'Testermon',
+    base_hp: 1,
+    base_attack: 1,
+    base_defense: 1,
+    base_special_attack: 1,
+    base_special_defense: 1,
+    base_speed: 1
+  }
+  altermon_attributes = {
+    name: 'Altermon',
+    base_hp: 1,
+    base_attack: 1,
+    base_defense: 1,
+    base_special_attack: 1,
+    base_special_defense: 1,
+    base_speed: 1
+  }
+  let(:pokemon_array) { Array.new(3) { Pokemon.create(testermon_attributes) } }
+  let(:pokemon) { Pokemon.create(altermon_attributes) }
 
 
   before do
